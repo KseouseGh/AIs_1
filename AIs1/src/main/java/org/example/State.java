@@ -4,12 +4,18 @@ import java.util.*;
 public class State {
     private int[][] board;// Field 4x4!
     private State parent;// Previous condition (or state!!)!
+    //0 - row, 1 - column
+    //0, 1, 2, 3 - index
+    //values storage row/col + index
     private String move;// Full path to current state!
     public static final int SIZE = 4;
+
+
     int hashCode;
 
-    public State(int[][] board) {// Copy array for non-conflict refs!
+    public State(int[][] board, String move) {// Copy array for non-conflict refs!
         this.board = new int[SIZE][SIZE];
+        this.move = move;
         for (int i = 0; i < SIZE; i++) {
             this.board[i] = Arrays.copyOf(board[i], SIZE);
         }
@@ -67,12 +73,17 @@ public class State {
         Collections.shuffle(balls);
         int[][] board = new int[SIZE][SIZE];
 
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 board[i][j] = balls.remove(0);
             }
         }
-        return new State(board);
+
+
+
+
+        return new State(board, "");
     }
 
     private int[][] copyBoard() {
@@ -89,14 +100,14 @@ public class State {
         for (int row = 0; row < SIZE; row++) {
             int[][] leftBoard = copyBoard();
             MoveRowLeft(leftBoard, row);
-            State leftChild = new State(leftBoard);
+            State leftChild = new State(leftBoard, move);
             leftChild.setParent(this, "Row " + row + " Left");
             children.add(leftChild);
         }//Columns!
         for (int col = 0; col < SIZE; col++) {
             int[][] upBoard = copyBoard();
             MoveColUp(upBoard, col);
-            State upChild = new State(upBoard);
+            State upChild = new State(upBoard, move);
             upChild.setParent(this, "Col " + col + " Up");
             children.add(upChild);
         }
@@ -121,10 +132,12 @@ public class State {
 
     protected void MoveColUp(int col) {
         MoveColUp(getBoard(), col);
+        move += "1" + col;
     }
 
     protected void MoveRowLeft(int row) {
         MoveRowLeft(getBoard(), row);
+        move += "0" + row;
     }
 
     public void printTestBoard() {
@@ -137,4 +150,5 @@ public class State {
         }
         System.out.println("---------");
     }
+
 }

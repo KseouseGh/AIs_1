@@ -13,7 +13,13 @@ public class Main {
             child.printTestBoard();
         }
 
+
         BoardGUI gui = new BoardGUI(obj);
         gui.setVisible(true);
+
+        System.out.println("Search start:");
+        BFS bfs = new BFS();
+        bfs.search(obj);
+        System.out.println("Search end");
     }
 }
