@@ -6,12 +6,14 @@ public class State {
     private State parent;// Previous condition (or state!!)!
     private String move;// Full path to current state!
     public static final int SIZE = 4;
+    int hashCode;
 
     public State(int[][] board) {// Copy array for non-conflict refs!
         this.board = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++) {
             this.board[i] = Arrays.copyOf(board[i], SIZE);
         }
+        this.hashCode=hashCode();
     }
 
     public int[][] getBoard() {
@@ -19,6 +21,9 @@ public class State {
     }
     public State getParent() {
         return parent;
+    }
+    public int getHashCode(){
+        return hashCode;
     }
 
     public void setParent(State parent, String move) {
@@ -112,6 +117,14 @@ public class State {
             leftBoard[row][i]=leftBoard[row][i+1];
         }
         leftBoard[row][(leftBoard.length)-1]=board_elem;
+    }
+
+    protected void MoveColUp(int col) {
+        MoveColUp(getBoard(), col);
+    }
+
+    protected void MoveRowLeft(int row) {
+        MoveRowLeft(getBoard(), row);
     }
 
     public void printTestBoard() {
