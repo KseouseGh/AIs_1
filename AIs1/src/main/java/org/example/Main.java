@@ -26,6 +26,9 @@ public class Main {
         System.out.println("Search end");
         //DFS!
         System.out.println("DFS search!");
-
+        System.out.println("Search start:");
+        DFS dfs = new DFS();
+        dfs.search(obj);
+        System.out.println("Search end");
     }
 }

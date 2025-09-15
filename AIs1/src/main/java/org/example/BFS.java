@@ -14,8 +14,8 @@ public class BFS {
         Set<Integer> visited = new HashSet<>();
         queue.add(state);
         visited.add(state.hashCode());
-        while (queue.size() > 0) {//Taking value from the head of queue!
-            State current = queue.poll();
+        while (queue.size() > 0) {
+            State current = queue.poll();//Taking value from the head of queue!
             if(solutionHash == current.hashCode()) {
 
                 System.out.println("Fonded solution: " + current.getMove() + " .");
