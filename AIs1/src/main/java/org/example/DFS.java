@@ -6,11 +6,11 @@ public class DFS {
     private int solutionHash = 0;
 
     DFS() {
-        this.solutionHash = Arrays.deepHashCode(solution);
+        this.solutionHash = State.hashCode(solution);
     }
 
     public void search(State state){
-        Stack<State> stack=new Stack<>();
+        Deque<State> stack=new ArrayDeque<>();
         Set<Integer> visited = new HashSet<>();
         stack.push(state);
         visited.add(state.hashCode());

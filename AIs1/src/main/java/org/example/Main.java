@@ -22,7 +22,7 @@ public class Main {
         System.out.println("BFS search!");
         System.out.println("Search start:");
         BFS bfs = new BFS();
-        bfs.search(obj);
+        bfs.search(obj);//кол-во итераций, витков цикла
         System.out.println("Search end");
         //DFS!
         System.out.println("DFS search!");
