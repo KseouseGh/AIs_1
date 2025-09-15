@@ -4,9 +4,6 @@ import java.util.*;
 public class State {
     private int[][] board;// Field 4x4!
     private State parent;// Previous condition (or state!!)!
-    //0 - row, 1 - column
-    //0, 1, 2, 3 - index
-    //values storage row/col + index
     private String move;// Full path to current state!
     public static final int SIZE = 4;
 
@@ -73,15 +70,11 @@ public class State {
         Collections.shuffle(balls);
         int[][] board = new int[SIZE][SIZE];
 
-
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 board[i][j] = balls.remove(0);
             }
         }
-
-
-
 
         return new State(board, "");
     }
@@ -132,12 +125,12 @@ public class State {
 
     protected void MoveColUp(int col) {
         MoveColUp(getBoard(), col);
-        move += "1" + col;
+        move += "\nMove Up Column " + (col+1);
     }
 
     protected void MoveRowLeft(int row) {
         MoveRowLeft(getBoard(), row);
-        move += "0" + row;
+        move += "\nMove Left Row " + (row+1);
     }
 
     public void printTestBoard() {
@@ -150,5 +143,4 @@ public class State {
         }
         System.out.println("---------");
     }
-
 }
