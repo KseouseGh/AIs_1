@@ -48,7 +48,29 @@ public class State {
 
     @Override
     public int hashCode() {
-        return Arrays.deepHashCode(board);
+        int hash = 0;
+        int pos = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                // сохраняем цвет (0..3) в 2 бита
+                hash |= (board[i][j] & 0b11) << (pos * 2);
+                pos++;
+            }
+        }
+        return hash;
+    }
+
+    public static int hashCode(int [][] obj) {
+        int hash = 0;
+        int pos = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                // сохраняем цвет (0..3) в 2 бита
+                hash |= (obj[i][j] & 0b11) << (pos * 2);
+                pos++;
+            }
+        }
+        return hash;
     }
 
     public String encode() {
@@ -75,6 +97,8 @@ public class State {
                 board[i][j] = balls.remove(0);
             }
         }
+
+        board = new int[][] {{1, 0, 1, 2}, {0, 1, 2, 3}, {2, 3, 0, 3}, {0, 1, 2, 3}};
 
         return new State(board, "");
     }
@@ -125,12 +149,12 @@ public class State {
 
     protected void MoveColUp(int col) {
         MoveColUp(getBoard(), col);
-        move += "\nMove Up Column " + (col+1);
+        move += "\nMove Up Column " + (col);
     }
 
     protected void MoveRowLeft(int row) {
         MoveRowLeft(getBoard(), row);
-        move += "\nMove Left Row " + (row+1);
+        move += "\nMove Left Row " + (row);
     }
 
     public void printTestBoard() {

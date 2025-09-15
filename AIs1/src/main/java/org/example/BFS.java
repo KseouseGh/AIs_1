@@ -6,7 +6,7 @@ public class BFS {
     private int solutionHash = 0;
 
     BFS() {
-        this.solutionHash = Arrays.deepHashCode(solution);
+        this.solutionHash = State.hashCode(solution);
     }
 
     public void search(State state) {
@@ -17,8 +17,8 @@ public class BFS {
         while (queue.size() > 0) {
             State current = queue.poll();//Taking value from the head of queue!
             if(solutionHash == current.hashCode()) {
-
                 System.out.println("Fonded solution: " + current.getMove() + " .");
+                current.printTestBoard();
                 return;
                 //System.exit(1);
             }
