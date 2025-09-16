@@ -13,7 +13,8 @@ public class Main {
             child.printTestBoard();
         }
         */
-        BoardGUI gui = new BoardGUI(obj);
+        State obj1=new State(new int[][]{{0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}, {1, 2, 3, 0}}, "");
+        BoardGUI gui = new BoardGUI(obj, obj1);
         gui.setVisible(true);
         //System.out.println("0 - row, 1 - column\n" +
         //        "0, 1, 2, 3 - index\n" +
@@ -22,13 +23,14 @@ public class Main {
         System.out.println("BFS search!");
         System.out.println("Search start:");
         BFS bfs = new BFS();
-        bfs.search(obj);//кол-во итераций, витков цикла
+        bfs.search(obj);
         System.out.println("Search end");
         //DFS!
-        System.out.println("DFS search!");
+        System.out.println("DFS search with other matrix!");
+        obj1.printTestBoard();
         System.out.println("Search start:");
-        //DFS dfs = new DFS();
-        //dfs.search(obj);
+        DFS dfs = new DFS();
+        dfs.search(obj1);
         System.out.println("Search end");
     }
 }

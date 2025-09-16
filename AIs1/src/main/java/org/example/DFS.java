@@ -10,15 +10,22 @@ public class DFS {
     }
 
     public void search(State state){
-        Deque<State> stack=new ArrayDeque<>();
+        Stack<State> stack=new Stack<>();
         Set<Integer> visited = new HashSet<>();
         stack.push(state);
         visited.add(state.hashCode());
+        int iterations=0;
+        int loops=0;
         while(stack.size()>0){
+            loops++;
             State current=stack.pop();//Taking elem-t from the h-d!
+            iterations++;
             if(solutionHash == current.hashCode()) {
 
                 System.out.println("Fonded solution: " + current.getMove() + " .");
+                current.printTestBoard();
+                System.out.println("DFS iterations = " + iterations);
+                System.out.println("DFS loops = " + loops);
                 return;
                 //System.exit(1);
             }

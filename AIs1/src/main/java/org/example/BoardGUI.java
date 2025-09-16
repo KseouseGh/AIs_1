@@ -6,9 +6,14 @@ public class BoardGUI extends JFrame {
     private State state;
     private JPanel gridPanel;
     private CellPanel[][] cells;
+    private boolean showingFirst = true;
+    private State state2;
+    private State current;
 
-    public BoardGUI(State initial) {
+    public BoardGUI(State initial, State i2) {
         this.state = initial;
+        this.state2=i2;
+        this.current=state;
         setTitle("AIs_1");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 600);
@@ -25,12 +30,12 @@ public class BoardGUI extends JFrame {
         }
 
         add(gridPanel, BorderLayout.CENTER);//Control panel!
-        JPanel controlPanel = new JPanel(new GridLayout(2, State.SIZE));
+        JPanel controlPanel = new JPanel(new GridLayout(3, State.SIZE));
         for (int i = 0; i < State.SIZE; i++) {
             int row = i;
             JButton left = new JButton("Row " + i + " Left");
             left.addActionListener(e -> {
-                state.MoveRowLeft(state.getBoard(), row);
+                current.MoveRowLeft(current.getBoard(), row);
                 updateBoard();
             });
             controlPanel.add(left);
@@ -39,17 +44,27 @@ public class BoardGUI extends JFrame {
             int col = i;
             JButton up = new JButton("Col " + i + " Up");
             up.addActionListener(e -> {
-                state.MoveColUp(state.getBoard(), col);
+                current.MoveColUp(current.getBoard(), col);
                 updateBoard();
             });
             controlPanel.add(up);
         }
+        JButton switchBtn = new JButton("Switch object");
+
+        switchBtn.addActionListener(e -> {
+            showingFirst = !showingFirst;
+            current = showingFirst ? state : state2;
+            updateBoard();
+            switchBtn.setText(showingFirst ? "Showobj1" : "Showobj");
+        });
+        controlPanel.add(switchBtn);
+
         add(controlPanel, BorderLayout.SOUTH);
         updateBoard();
     }
 
     private void updateBoard() {
-        int[][] board = state.getBoard();
+        int[][] board = current.getBoard();
         for (int i = 0; i < State.SIZE; i++) {
             for (int j = 0; j < State.SIZE; j++) {
                 Color color = switch (board[i][j]) {
