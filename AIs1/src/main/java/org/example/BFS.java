@@ -15,16 +15,13 @@ public class BFS {
         queue.add(state);
         visited.add(state.hashCode());
         int iterations=0;
-        int loops=0;
         while (queue.size() > 0) {
-            loops++;
             State current = queue.poll();//Taking value from the head of queue!
             iterations++;
             if(solutionHash == current.hashCode()) {
                 System.out.println("Fonded solution: " + current.getMove() + " .");
                 current.printTestBoard();
                 System.out.println("BFS iterations = " + iterations);
-                System.out.println("BFS loops = " + loops);
                 return;
                 //System.exit(1);
             }

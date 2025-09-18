@@ -15,9 +15,7 @@ public class DFS {
         stack.push(state);
         visited.add(state.hashCode());
         int iterations=0;
-        int loops=0;
         while(stack.size()>0){
-            loops++;
             State current=stack.pop();//Taking elem-t from the h-d!
             iterations++;
             if(solutionHash == current.hashCode()) {
@@ -25,7 +23,7 @@ public class DFS {
                 System.out.println("Fonded solution: " + current.getMove() + " .");
                 current.printTestBoard();
                 System.out.println("DFS iterations = " + iterations);
-                System.out.println("DFS loops = " + loops);
+                System.out.println("DFS depth = " + current.getDepth());
                 return;
                 //System.exit(1);
             }
@@ -33,14 +31,26 @@ public class DFS {
                 State temp=new State(current.getBoard(), current.getMove());
                 temp.MoveColUp(i);
                 if(!visited.contains(temp.hashCode())){
-                    stack.push(temp);
-                    visited.add(temp.hashCode());
+                    temp.setDepth(current.getDepth() + 1);
+                    if(temp.depth<=5){
+                        stack.push(temp);
+                        visited.add(temp.hashCode());
+                    }
+                    else{
+                        continue;
+                    }
                 }
                 temp = new State(current.getBoard(), current.getMove());
                 temp.MoveRowLeft(i);
                 if(!visited.contains(temp.hashCode())){
-                    stack.push(temp);
-                    visited.add(temp.hashCode());
+                    temp.setDepth(current.getDepth() + 1);
+                    if(temp.depth<=5){
+                        stack.push(temp);
+                        visited.add(temp.hashCode());
+                    }
+                    else{
+                        continue;
+                    }
                 }
             }
         }

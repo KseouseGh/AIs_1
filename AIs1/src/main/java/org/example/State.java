@@ -6,9 +6,8 @@ public class State {
     private State parent;// Previous condition (or state!!)!
     private String move;// Full path to current state!
     public static final int SIZE = 4;
-
-
     int hashCode;
+    int depth = 0;
 
     public State(int[][] board, String move) {// Copy array for non-conflict refs!
         this.board = new int[SIZE][SIZE];
@@ -166,5 +165,13 @@ public class State {
             System.out.println();
         }
         System.out.println("---------");
+    }
+
+    int getDepth() {
+        return depth;
+    }
+
+    void setDepth(int depth) {
+        this.depth = depth;
     }
 }
