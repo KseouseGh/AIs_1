@@ -55,7 +55,7 @@ public class BoardGUI extends JFrame {
             showingFirst = !showingFirst;
             current = showingFirst ? state : state2;
             updateBoard();
-            switchBtn.setText(showingFirst ? "Showobj1" : "Showobj");
+            switchBtn.setText(showingFirst ? "Showobj1DFS" : "ShowobjBFS");
         });
         controlPanel.add(switchBtn);
 

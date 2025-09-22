@@ -1,9 +1,11 @@
 package org.example;
 import java.util.*;
+import static java.lang.System.in;
 
 public class DFS {
     private int[][] solution = {{0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}};
     private int solutionHash = 0;
+    int rd=0;
 
     DFS() {
         this.solutionHash = State.hashCode(solution);
@@ -32,7 +34,7 @@ public class DFS {
                 temp.MoveColUp(i);
                 if(!visited.contains(temp.hashCode())){
                     temp.setDepth(current.getDepth() + 1);
-                    if(temp.depth<=5){
+                    if(temp.depth<=rd){
                         stack.push(temp);
                         visited.add(temp.hashCode());
                     }
@@ -44,7 +46,7 @@ public class DFS {
                 temp.MoveRowLeft(i);
                 if(!visited.contains(temp.hashCode())){
                     temp.setDepth(current.getDepth() + 1);
-                    if(temp.depth<=5){
+                    if(temp.depth<=rd){
                         stack.push(temp);
                         visited.add(temp.hashCode());
                     }

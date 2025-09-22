@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("AIs-1");
@@ -13,12 +15,14 @@ public class Main {
             child.printTestBoard();
         }
         */
-        State obj1=new State(new int[][]{{0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}, {1, 2, 3, 0}}, "");
+        State obj1=new State(new int[][]{
+                {0, 1, 2, 3},
+                {0, 1, 2, 0},
+                {0, 1, 2, 3},
+                {1, 2, 3, 3}
+        }, "");
         BoardGUI gui = new BoardGUI(obj, obj1);
         gui.setVisible(true);
-        //System.out.println("0 - row, 1 - column\n" +
-        //        "0, 1, 2, 3 - index\n" +
-        //        "values storage row/col + index");
         //BFS!
         System.out.println("BFS search!");
         System.out.println("Search start:");
@@ -30,6 +34,10 @@ public class Main {
         obj1.printTestBoard();
         System.out.println("Search start:");
         DFS dfs = new DFS();
+        System.out.println("Set depth restriction for search = ");
+        Scanner scanner;
+        scanner = new Scanner(System.in);
+        dfs.rd = scanner.nextInt();
         dfs.search(obj1);
         System.out.println("Search end");
     }
