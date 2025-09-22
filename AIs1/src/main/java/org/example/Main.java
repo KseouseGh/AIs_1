@@ -1,11 +1,10 @@
 package org.example;
-
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("AIs-1");
-        State obj = State.RandomState();
+        State obj = State.RandomState();// Для лр2 ограничение не тупое для dfs а с итератирвным углублением!
         System.out.println("0 - Красный, 1 - Зелёный, 2 - Синий, 3 - Жёлтый");
         System.out.println("Origin table!!!");
         obj.printTestBoard();
