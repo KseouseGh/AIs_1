@@ -12,26 +12,32 @@ public class BFS {
     public void search(State state) {
         Queue<State> queue = new LinkedList<State>();
         Set<Integer> visited = new HashSet<>();
+        int iterations=0;
+
         queue.add(state);
         visited.add(state.hashCode());
-        int iterations=0;
+
         while (queue.size() > 0) {
             State current = queue.poll();//Taking value from the head of queue!
             iterations++;
+
             if(solutionHash == current.hashCode()) {
                 System.out.println("Fonded solution: " + current.getMove() + " .");
                 current.printTestBoard();
                 System.out.println("BFS iterations = " + iterations);
                 return;
-                //System.exit(1);
             }
+
             for (int i = 0; i < State.SIZE; i++) {
-                State tmp = new State(current.getBoard(), current.getMove());
+                State tmp;
+
+                tmp = new State(current.getBoard(), current.getMove());
                 tmp.MoveColUp(i);
                 if(!visited.contains(tmp.hashCode())){
                     queue.add(tmp);
                     visited.add(tmp.hashCode());
                 }
+
                 tmp = new State(current.getBoard(), current.getMove());
                 tmp.MoveRowLeft(i);
                 if(!visited.contains(tmp.hashCode())){
