@@ -37,6 +37,13 @@ public class State {
         return move;
     }
 
+    public String getMoveR() {
+        List<String> lines = new ArrayList<>(Arrays.asList(move.trim().split("\n")));
+        Collections.reverse(lines);
+
+        return "\n" + String.join("\n", lines);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -131,30 +138,57 @@ public class State {
     }
 
     protected void MoveColUp(int[][] upBoard, int col) {
-        int board_elem=upBoard[0][col];
-        for(int i = 0; i < (upBoard.length-1); i++){
-            upBoard[i][col]=upBoard[i+1][col];//Processing row's elem-s from the end!
+        int board_elem = upBoard[0][col];
+        for (int i = 0; i < (upBoard.length - 1); i++) {
+            upBoard[i][col] = upBoard[i + 1][col];
         }
-        upBoard[(upBoard.length)-1][col]=board_elem;
+        upBoard[upBoard.length - 1][col] = board_elem;
     }
 
     protected void MoveRowLeft(int[][] leftBoard, int row) {
-        int board_elem=leftBoard[row][0];
-        for(int i = 0; i < (leftBoard.length-1); i++) {
-            leftBoard[row][i]=leftBoard[row][i+1];
+        int board_elem = leftBoard[row][0];
+        for (int i = 0; i < (leftBoard[row].length - 1); i++) {
+            leftBoard[row][i] = leftBoard[row][i + 1];
         }
-        leftBoard[row][(leftBoard.length)-1]=board_elem;
+        leftBoard[row][leftBoard[row].length - 1] = board_elem;
+    }
+
+    protected void MoveColDown(int[][] downBoard, int col) {
+        int board_elem = downBoard[downBoard.length - 1][col];
+        for (int i = downBoard.length - 1; i > 0; i--) {
+            downBoard[i][col] = downBoard[i - 1][col];
+        }
+        downBoard[0][col] = board_elem;
+    }
+
+    protected void MoveRowRight(int[][] rightBoard, int row) {
+        int board_elem = rightBoard[row][rightBoard[row].length - 1];
+        for (int i = rightBoard[row].length - 1; i > 0; i--) {
+            rightBoard[row][i] = rightBoard[row][i - 1];
+        }
+        rightBoard[row][0] = board_elem;
     }
 
     protected void MoveColUp(int col) {
         MoveColUp(getBoard(), col);
-        move += "\nMove Up Column " + (col);
+        move += "\nMove Up Column " + col;
     }
 
     protected void MoveRowLeft(int row) {
         MoveRowLeft(getBoard(), row);
-        move += "\nMove Left Row " + (row);
+        move += "\nMove Left Row " + row;
     }
+
+    protected void MoveColDown(int col) {
+        MoveColDown(getBoard(), col);
+        move += "\nMove Up Column " + col;
+    }
+
+    protected void MoveRowRight(int row) {
+        MoveRowRight(getBoard(), row);
+        move += "\nMove Left Row " + row;
+    }
+
 
     public void printTestBoard() {
         System.out.println("---------");

@@ -22,13 +22,24 @@ public class Main {
         }, "");
         BoardGUI gui = new BoardGUI(obj, obj1);
         gui.setVisible(true);
+
         //BFS!
         System.out.println("BFS search!");
         System.out.println("Search start:");
         BFS bfs = new BFS();
         bfs.search(obj);
         System.out.println("Search end");
+
+        //Bi_DFS
+        System.out.println("\n\n\n\n\n\n\n\n");
+        System.out.println("Bi_BFS search!");
+        System.out.println("Search start:");
+        Bi_BFS bi_bfs = new Bi_BFS();
+        bi_bfs.search(obj);
+        System.out.println("Search end");
+
         //DFS!
+        System.out.println("\n\n\n\n\n\n\n\n");
         System.out.println("DFS search with other matrix!");
         obj1.printTestBoard();
         System.out.println("Search start:");
