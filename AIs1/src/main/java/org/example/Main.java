@@ -4,8 +4,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         System.out.println("AIs-1");
-        State obj = State.RandomState();// Для лр2 ограничение не тупое для dfs а с итератирвным углублением!
-        System.out.println("0 - Красный, 1 - Зелёный, 2 - Синий, 3 - Жёлтый");
+        //State obj = State.RandomState();
+        State obj=new State(new int[][]{
+                {0, 1, 2, 3},
+                {0, 1, 2, 0},
+                {0, 1, 2, 3},
+                {1, 2, 3, 3}
+        }, "");
+        System.out.println("0 - Red, 1 - Green, 2 - Blue, 3 - Yellow");
         System.out.println("Origin table!!!");
         obj.printTestBoard();
         /*
@@ -16,30 +22,27 @@ public class Main {
         */
         State obj1=new State(new int[][]{
                 {0, 1, 2, 3},
-                {0, 1, 2, 0},
                 {0, 1, 2, 3},
-                {1, 2, 3, 3}
+                {0, 1, 2, 3},
+                {1, 2, 3, 0}
         }, "");
         BoardGUI gui = new BoardGUI(obj, obj1);
         gui.setVisible(true);
-
         //BFS!
         System.out.println("BFS search!");
         System.out.println("Search start:");
         BFS bfs = new BFS();
         bfs.search(obj);
         System.out.println("Search end");
-
         //Bi_DFS
-        System.out.println("\n\n\n\n\n\n\n\n");
+        System.out.println("\n");
         System.out.println("Bi_BFS search!");
         System.out.println("Search start:");
         Bi_BFS bi_bfs = new Bi_BFS();
         bi_bfs.search(obj);
         System.out.println("Search end");
-
-        //DFS!
-        System.out.println("\n\n\n\n\n\n\n\n");
+        //DFS(BetterOne)!
+        System.out.println("\n");
         System.out.println("DFS search with other matrix!");
         obj1.printTestBoard();
         System.out.println("Search start:");

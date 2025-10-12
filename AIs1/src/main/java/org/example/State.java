@@ -58,7 +58,6 @@ public class State {
         int pos = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                // сохраняем цвет (0..3) в 2 бита
                 hash |= (board[i][j] & 0b11) << (pos * 2);
                 pos++;
             }
@@ -71,7 +70,6 @@ public class State {
         int pos = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                // сохраняем цвет (0..3) в 2 бита
                 hash |= (obj[i][j] & 0b11) << (pos * 2);
                 pos++;
             }
