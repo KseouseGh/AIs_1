@@ -7,9 +7,9 @@ public class Main {
         //State obj = State.RandomState();
         State obj=new State(new int[][]{
                 {0, 1, 2, 3},
-                {0, 1, 2, 0},
                 {0, 1, 2, 3},
-                {1, 2, 3, 3}
+                {0, 1, 2, 3},
+                {1, 2, 3, 0}
         }, "");
         System.out.println("0 - Red, 1 - Green, 2 - Blue, 3 - Yellow");
         System.out.println("Origin table!!!");
@@ -53,5 +53,12 @@ public class Main {
         dfs.rd = scanner.nextInt();
         dfs.search(obj1);
         System.out.println("Search end");
+        System.out.println("\n");
+        //AStar!
+        System.out.println("AStar search!");
+        System.out.println("Search start:");
+        AStarSearch astar = new AStarSearch();
+        astar.search(obj1);
+        System.out.println("Heuristic-search end");
     }
 }

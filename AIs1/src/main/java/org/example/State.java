@@ -8,6 +8,9 @@ public class State {
     public static final int SIZE = 4;
     int hashCode;
     int depth = 0;
+    int g=0;//Price from start state!
+    int h=0;//Informal estimate to solution!
+    int f=0;//Cal. value = g+h!
 
     public State(int[][] board, String move) {// Copy array for non-conflict refs!
         this.board = new int[SIZE][SIZE];
@@ -205,5 +208,18 @@ public class State {
 
     void setDepth(int depth) {
         this.depth = depth;
+    }
+
+    public int calc_heuristic_free_decision(){
+        int h=0;
+        for(int col = 0; col < this.SIZE; col++){
+            int color = board[0][col];
+            for(int row = 0; row < this.SIZE; row++){
+                if(board[row][col]!=color){
+                    h=h+1;
+                }
+            }
+        }
+        return h;
     }
 }
