@@ -6,9 +6,9 @@ public class Main {
         System.out.println("AIs-1");
         //State obj = State.RandomState();
         State obj=new State(new int[][]{
-                {0, 1, 2, 3},
-                {0, 1, 2, 3},
-                {0, 1, 2, 3},
+                {2, 1, 0, 3},
+                {0, 3, 1, 2},
+                {3, 0, 2, 1},
                 {1, 2, 3, 0}
         }, "");
         System.out.println("0 - Red, 1 - Green, 2 - Blue, 3 - Yellow");
@@ -22,9 +22,9 @@ public class Main {
         */
         State obj1=new State(new int[][]{
                 {0, 1, 2, 3},
+                {0, 1, 2, 0},
                 {0, 1, 2, 3},
-                {0, 1, 2, 3},
-                {1, 2, 3, 0}
+                {1, 2, 3, 3}
         }, "");
         BoardGUI gui = new BoardGUI(obj, obj1);
         gui.setVisible(true);
@@ -32,9 +32,9 @@ public class Main {
         System.out.println("BFS search!");
         System.out.println("Search start:");
         BFS bfs = new BFS();
-        bfs.search(obj);
+        bfs.search(obj1);
         System.out.println("Search end");
-        //Bi_DFS
+        //Bi_BFS
         System.out.println("\n");
         System.out.println("Bi_BFS search!");
         System.out.println("Search start:");
@@ -44,6 +44,7 @@ public class Main {
         //DFS(BetterOne)!
         System.out.println("\n");
         System.out.println("DFS search with other matrix!");
+        System.out.println("DFS with iter. up-e!");
         obj1.printTestBoard();
         System.out.println("Search start:");
         DFS dfs = new DFS();
@@ -58,7 +59,7 @@ public class Main {
         System.out.println("AStar search!");
         System.out.println("Search start:");
         AStarSearch astar = new AStarSearch();
-        astar.search(obj1);
+        astar.search(obj);
         System.out.println("Heuristic-search end");
     }
 }

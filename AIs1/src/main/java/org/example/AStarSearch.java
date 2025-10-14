@@ -6,7 +6,7 @@ public class AStarSearch {
     private final int[][] solution_r = {{0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}};
 
     private int solutionHash = 0;
-    //h(n) = cells count that have incorrect color, which is means that col-n involves more than one color!
+    //h(n) = cells count frequency of incorrect value for each color, that means p. col-n involves excess. And reversal rule for ro-s gr.!
     AStarSearch() {
         //this.solutionHash = State.hashCode(solution);
     }

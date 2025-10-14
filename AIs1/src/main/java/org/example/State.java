@@ -212,12 +212,35 @@ public class State {
 
     public int calc_heuristic_free_decision(){
         int h=0;
-        for(int col = 0; col < this.SIZE; col++){
+        for(int col = 0; col < this.SIZE; col++) {
+            Map<Integer, Integer> step = new HashMap<>();
             int color = board[0][col];
-            for(int row = 0; row < this.SIZE; row++){
-                if(board[row][col]!=color){
-                    h=h+1;
+            for (int row = 0; row < this.SIZE; row++) {
+                step.put(board[row][col], (step.getOrDefault(board[row][col], 0) + 1));
+            }
+
+            if (step.size() > 1) {
+                int max_frequency = Collections.max(step.values());
+                int min_frequency = Collections.min(step.values());
+                h = h + ((step.size() - 1) + (SIZE - max_frequency));
+            }
+
+            if (step.size() == 1) {
+                int colColor = board[0][col];
+                if (colColor != col) {
+                    h = h + SIZE;
                 }
+            }
+        }
+        for(int row = 0; row < SIZE; row++){
+            Map<Integer, Integer> step = new HashMap<>();
+            for(int col = 0; col < SIZE; col++){
+                step.put(board[row][col], step.getOrDefault(board[row][col], 0) + 1);
+            }
+
+            if(step.size() > 1){
+                int max_frequency = Collections.max(step.values());//h = h+(SIZE - step.size());
+                h = h+(SIZE - step.size()) * (row + 1);
             }
         }
         return h;
