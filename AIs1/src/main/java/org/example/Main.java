@@ -91,6 +91,9 @@ public class Main {
                     int[][] matrix = Utils.shuffleMatrix(tmp);
 
                     obj = new State(matrix, "");
+                    System.out.println("0 - Red, 1 - Green, 2 - Blue, 3 - Yellow");
+                    System.out.println("Origin table!!!");
+                    obj.printTestBoard();
 
                     gui = new BoardGUI(obj, obj);
                     gui.setVisible(true);
