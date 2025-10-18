@@ -6,6 +6,12 @@ public class Main {
         String choice = "";
         State obj = null;
         Scanner sc = new Scanner(System.in);
+        int[][] staticMatrix = {
+                {3, 3, 0, 2},
+                {0, 0, 1, 3},
+                {3, 1, 2, 2},
+                {0, 1, 1, 2}
+        };
 
         BoardGUI gui = null;
 
@@ -17,6 +23,7 @@ public class Main {
             System.out.println("3 - Bi_BFS");
             System.out.println("4 - A star");
             System.out.println("5 - Generate a random state with depth specification");
+            System.out.println("6 - Use static matrix");
             System.out.println("0 - Exit");
             System.out.print("Enter choice: ");
 
@@ -91,6 +98,16 @@ public class Main {
                     int[][] matrix = Utils.shuffleMatrix(tmp);
 
                     obj = new State(matrix, "");
+                    System.out.println("0 - Red, 1 - Green, 2 - Blue, 3 - Yellow");
+                    System.out.println("Origin table!!!");
+                    obj.printTestBoard();
+
+                    gui = new BoardGUI(obj, obj);
+                    gui.setVisible(true);
+                }
+
+                case '6' -> {
+                    obj = new State(staticMatrix, "");
                     System.out.println("0 - Red, 1 - Green, 2 - Blue, 3 - Yellow");
                     System.out.println("Origin table!!!");
                     obj.printTestBoard();

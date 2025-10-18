@@ -12,13 +12,13 @@ public class BFS {
     public void search(State state) {
         Queue<State> queue = new LinkedList<State>();
         Set<Integer> visited = new HashSet<>();
-        int iterations=0;
+        int iterations = 0;
 
         queue.add(state);
         visited.add(state.hashCode());
 
         while (queue.size() > 0) {
-            State current = queue.poll();//Taking value from the head of queue!
+            State current = queue.poll();
             iterations++;
 
             if(solutionHash == current.hashCode()) {

@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 public class Bi_BFS {
     private int[][] solution = {{0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}};
@@ -17,69 +14,65 @@ public class Bi_BFS {
         Queue<State> queue = new LinkedList<State>();
         Queue<State> queueR = new LinkedList<State>();
 
-        Set<Integer> visited = new HashSet<>();
-        Set<Integer> visitedR = new HashSet<>();
-        int iterations=0;
+        Map<Integer, State> visited = new HashMap<>();
+        Map<Integer, State> visitedR = new HashMap<>();
+        int iterations = 0;
 
         queue.add(state);
-        visited.add(state.hashCode());
+        visited.put(state.hashCode(), state);
         queueR.add(new State(solution, ""));
-        visitedR.add(solutionHash);
+        visitedR.put(solutionHash, queueR.peek());
 
         while (queue.size() > 0 && queueR.size() > 0) {
-            State current = queue.poll();
-            State currentR = queueR.poll();
             iterations++;
+
+            State current = queue.poll();
+            if(visitedR.containsKey(current.hashCode())) {
+                System.out.println("Fonded solution: " + current.getMove() + "\n" +  visitedR.get(current.hashCode()).getMoveR() +" .");
+                System.out.println("Bi_BFS iterations = " + iterations);
+                return;
+            }
 
             for (int i = 0; i < State.SIZE; i++) {
                 State tmp;
-
                 tmp = new State(current.getBoard(), current.getMove());
-                tmp.MoveColUp(i);
-                if(!visited.contains(tmp.hashCode())){
-                    queue.add(tmp);
-                    visited.add(tmp.hashCode());
-                } if (visitedR.contains(tmp.hashCode())) {
-                    System.out.println("Fonded solution: " + tmp.getMove() + "\n" + currentR.getMoveR() + " .");
-                    current.printTestBoard();
-                    System.out.println("Bi_BFS iterations = " + iterations);
-                    return;
-                }
 
-                tmp = new State(currentR.getBoard(), currentR.getMove());
-                tmp.MoveColDown(i);
-                if(!visitedR.contains(tmp.hashCode())){
-                    queueR.add(tmp);
-                    visitedR.add(tmp.hashCode());
-                } if (visited.contains(tmp.hashCode())) {
-                    System.out.println("Fonded solution: " + current.getMove() + "\n" + tmp.getMoveR() + " .");
-                    current.printTestBoard();
-                    System.out.println("Bi_BFS iterations = " + iterations);
-                    return;
+                tmp.MoveColUp(i);
+                if(!visited.containsKey(tmp.hashCode())){
+                    queue.add(tmp);
+                    visited.put(tmp.hashCode(), tmp);
                 }
 
                 tmp = new State(current.getBoard(), current.getMove());
                 tmp.MoveRowLeft(i);
-                if(!visited.contains(tmp.hashCode())){
+                if(!visited.containsKey(tmp.hashCode())){
                     queue.add(tmp);
-                    visited.add(tmp.hashCode());
-                } if (visitedR.contains(tmp.hashCode())) {
-                    System.out.println("Fonded solution: " + tmp.getMove() + "\n" + currentR.getMoveR() + " .");
-                    current.printTestBoard();
-                    System.out.println("Bi_BFS iterations = " + iterations);
-                    return;
+                    visited.put(tmp.hashCode(), tmp);
+                }
+            }
+
+            current = queueR.poll();
+            if(visited.containsKey(current.hashCode())) {
+                System.out.println("Fonded solution: " + visited.get(current.hashCode()).getMove() + "\n" + current.getMoveR() + " .");
+                System.out.println("Bi_BFS iterations = " + iterations);
+                return;
+            }
+
+            for (int i = 0; i < State.SIZE; i++) {
+                State tmp;
+                tmp = new State(current.getBoard(), current.getMove());
+
+                tmp.MoveColDown(i);
+                if(!visitedR.containsKey(tmp.hashCode())){
+                    queueR.add(tmp);
+                    visitedR.put(tmp.hashCode(), tmp);
                 }
 
-                tmp = new State(currentR.getBoard(), currentR.getMove());
+                tmp = new State(current.getBoard(), current.getMove());
                 tmp.MoveRowRight(i);
-                if(!visitedR.contains(tmp.hashCode())){
+                if(!visitedR.containsKey(tmp.hashCode())){
                     queueR.add(tmp);
-                    visitedR.add(tmp.hashCode());
-                } if (visited.contains(tmp.hashCode())) {
-                    System.out.println("Fonded solution: " + current.getMove() + "\n" + tmp.getMoveR() + " .");
-                    current.printTestBoard();
-                    System.out.println("Bi_BFS iterations = " + iterations);
-                    return;
+                    visitedR.put(tmp.hashCode(), tmp);
                 }
             }
         }
