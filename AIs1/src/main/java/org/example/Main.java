@@ -7,30 +7,43 @@ public class Main {
         State obj = null;
         Scanner sc = new Scanner(System.in);
         int[][] staticMatrix = {
+                {0, 1, 2, 3},
+                {0, 1, 2, 0},
+                {0, 1, 2, 3},
+                {1, 2, 3, 3}
+        };
+        /*
+        int[][] staticMatrix = {
+                {0, 1, 2, 3},
+                {0, 1, 2, 0},
+                {0, 1, 2, 3},
+                {1, 2, 3, 3}
+
                 {3, 3, 0, 2},
                 {0, 0, 1, 3},
                 {3, 1, 2, 2},
                 {0, 1, 1, 2}
         };
-
+        */
         BoardGUI gui = null;
-
         while(!choice.equals("0")) {
-            System.out.println("\n\n\n\n");
+            System.out.println("\n\n");
             System.out.println("=== Menu ===");
+            System.out.println("Searchers");
             System.out.println("1 - BFS");
             System.out.println("2 - DFS");
             System.out.println("3 - Bi_BFS");
-            System.out.println("4 - A star");
+            System.out.println("4 - AStar I (struct heuristic)");
+            System.out.println("7 - AStar II (PDB-method heuristic)");
+            System.out.println("Board matrix initializers");
             System.out.println("5 - Generate a random state with depth specification");
             System.out.println("6 - Use static matrix");
             System.out.println("0 - Exit");
             System.out.print("Enter choice: ");
-
             choice = sc.nextLine();
 
             switch (choice.charAt(0)) {
-                case '1', '2', '3', '4' -> {
+                case '1', '2', '3', '4', '7' -> {
                     if (obj == null) {
                         System.out.println("You must to init state");
                         continue;
@@ -86,6 +99,16 @@ public class Main {
                             System.out.println("Heuristic-search end");
                             Utils.printMemoryUsage();
                             astar = null;
+                            break;
+
+                        case '7':
+                            System.out.println("AStarPatternDB search!");
+                            System.out.println("Search start:");
+                            AStarPatternDB astar2 = new AStarPatternDB();
+                            astar2.search(obj);
+                            System.out.println("Heuristic-search end");
+                            Utils.printMemoryUsage();
+                            astar2 = null;
                             break;
                     }
                 }
