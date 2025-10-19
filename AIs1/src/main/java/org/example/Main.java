@@ -7,27 +7,40 @@ public class Main {
         State obj = null;
         Scanner sc = new Scanner(System.in);
         int[][] staticMatrix = {
+                {0, 1, 2, 3},
+                {0, 1, 2, 0},
+                {0, 1, 2, 3},
+                {1, 2, 3, 3}
+        };
+        /*
+        int[][] staticMatrix = {
+                {0, 1, 2, 3},
+                {0, 1, 2, 0},
+                {0, 1, 2, 3},
+                {1, 2, 3, 3}
+
                 {3, 3, 0, 2},
                 {0, 0, 1, 3},
                 {3, 1, 2, 2},
                 {0, 1, 1, 2}
         };
-
+        */
         BoardGUI gui = null;
-
         while(!choice.equals("0")) {
-            System.out.println("\n\n\n\n");
+            System.out.println("\n\n");
             System.out.println("=== Menu ===");
+            System.out.println("Searchers");
             System.out.println("1 - BFS");
             System.out.println("2 - DFS");
             System.out.println("3 - Bi_BFS");
-            System.out.println("4 - A star");
-            System.out.println("5 - A star new");
-            System.out.println("6 - Generate a random state with depth specification");
-            System.out.println("7 - Use static matrix");
+            System.out.println("4 - AStar I (struct heuristic)");
+            System.out.println("5 - AStar II (PDB-method heuristic)");
+            System.out.println("6 - AStar new");
+            System.out.println("Board matrix initializers");
+            System.out.println("7 - Generate a random state with depth specification");
+            System.out.println("8 - Use static matrix");
             System.out.println("0 - Exit");
             System.out.print("Enter choice: ");
-
             choice = sc.nextLine();
 
             switch (choice.charAt(0)) {
@@ -90,16 +103,25 @@ public class Main {
                             break;
 
                         case '5':
-                            System.out.println("AStar new search!");
+                            System.out.println("AStarPatternDB search!");
                             System.out.println("Search start:");
-                            SMAstar.search(obj);
+                            AStarPatternDB astar2 = new AStarPatternDB();
+                            astar2.search(obj);
                             System.out.println("Heuristic-search end");
+                            Utils.printMemoryUsage();
+                            astar2 = null;
+                            break;
+
+                        case '6':
+                            System.out.println("AStar new search!");
+                            SMAstar.search(obj);
+                            System.out.println("\n");
                             Utils.printMemoryUsage();
                             break;
                     }
                 }
 
-                case '6' -> {
+                case '7' -> {
                     int tmp = 0;
                     System.out.print("Enter count of shifts: ");
 
@@ -115,7 +137,7 @@ public class Main {
                     gui.setVisible(true);
                 }
 
-                case '7' -> {
+                case '8' -> {
                     obj = new State(staticMatrix, "");
                     System.out.println("0 - Red, 1 - Green, 2 - Blue, 3 - Yellow");
                     System.out.println("Origin table!!!");

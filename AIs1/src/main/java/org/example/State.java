@@ -3,6 +3,7 @@ import java.util.*;
 
 public class State {
     private int[][] board;// Field 4x4!
+    private State parent;// Previous condition (or state!!)!
     private String move;// Full path to current state!
     public static final int SIZE = 4;
     int hashCode;
@@ -13,23 +14,8 @@ public class State {
 
     int priorityV1;
 
-    public int getPriorityV1() {
-        return priorityV1;
-    }
 
-    public void calculateV1 () {
-        int[] aim = {0, 1, 2, 3};
-        priorityV1 = 0;
-
-        for(int i=0; i<SIZE; i++) {
-            for(int j=0; j<SIZE; j++) {
-                if(board[i][j] != aim[j])
-                    priorityV1++;
-            }
-        }
-    }
-
-    public State(int[][] board, String move) {
+    public State(int[][] board, String move) {// Copy array for non-conflict refs!
         this.board = new int[SIZE][SIZE];
         this.move = move;
         for (int i = 0; i < SIZE; i++) {
@@ -38,6 +24,25 @@ public class State {
         this.hashCode=hashCode();
     }
 
+    public void calculateV1 () {
+        int[] aim = {0, 1, 2, 3};
+        priorityV1 = 0;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if(aim[i] != board[i][j]) {
+                    priorityV1++;
+                }
+            }
+        }
+    }
+
+    public int getPriorityV1() {
+        return priorityV1;
+    }
+
+    public int setPriorityV1(int priorityV1) {
+        this.priorityV1 = priorityV1;
+    }
     public int[][] getBoard() {
         return board;
     }
@@ -84,14 +89,6 @@ public class State {
             }
         }
         return hash;
-    }
-
-    private int[][] copyBoard() {
-        int[][] copy = new int[SIZE][SIZE];
-        for (int i = 0; i < SIZE; i++) {
-            copy[i] = Arrays.copyOf(board[i], SIZE);
-        }
-        return copy;
     }
 
     protected void MoveColUp(int[][] upBoard, int col) {
@@ -202,5 +199,42 @@ public class State {
         return h;
     }
 
+    public int getLeftHash() {
+        int hash = 0;
+        int pos = 0;
+        // 0 and 1!
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < 2; j++) {
+                hash |= (board[i][j] & 0b11) << (pos * 2);
+                pos++;
+            }
+        }
 
+        return hash;
+    }
+
+    public int getRightHash() {
+        int hash = 0;
+        int pos = 0;
+        // 2 and 3!
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 2; j < SIZE; j++) {
+                hash |= (board[i][j] & 0b11) << (pos * 2);
+                pos++;
+            }
+        }
+
+        return hash;
+    }
+
+    public int calc_PDB_method_heuristic(AStarPatternDB.PatternDB pdb01l, AStarPatternDB.PatternDB pdb23r) {
+        int h = 0;
+        int leftKey = getLeftHash();
+        int rightKey = getRightHash();
+        int h1 = pdb01l.pdb.getOrDefault(leftKey, 0);
+        int h2 = pdb23r.pdb.getOrDefault(rightKey, 0);
+
+        h=h+(h1+h2);
+        return h;
+    }
 }

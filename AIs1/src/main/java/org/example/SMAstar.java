@@ -46,7 +46,7 @@ public class SMAstar {
 
                 tmp = new State(current.getBoard(), current.getMove());
                 tmp.MoveColUp(k);
-                tmp.priorityV1 = current.getPriorityV1();
+                tmp.setPriorityV1(current.getPriorityV1());
                 if(!visited.contains(tmp.hashCode())){
                     queue.add(tmp);
                     visited.add(tmp.hashCode());
