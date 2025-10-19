@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Utils {
@@ -78,5 +79,13 @@ public class Utils {
                 total / (1024.0 * 1024.0),
                 max / (1024.0 * 1024.0)
         );
+    }
+
+    public static int[][] copyBoard(int[][] board) {
+        int[][] newBoard = new int[State.SIZE][State.SIZE];
+        for (int i = 0; i < State.SIZE; i++) {
+            newBoard[i] = Arrays.copyOf(board[i], State.SIZE);
+        }
+        return newBoard;
     }
 }

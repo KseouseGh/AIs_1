@@ -6,19 +6,18 @@ public class SMAstar {
     private static int[][] solution = {{0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}};
     private static int solutionHash = 0;
 
-
     static {
         solutionHash = State.hashCode(solution);
     }
 
     public static void search(State state) {
-        state.calculateV1();
+        state.calculateH();
         int iterations = 0;
 
         PriorityQueue<State> queue = new PriorityQueue<>(
-                Comparator.comparingInt(State::getPriorityV1)
+                Comparator.comparingInt(State::getPriority)
         );
-        Set<Integer> visited = new HashSet<>();
+        Map<Integer, State> visited = new HashMap<>();
 
         queue.add(state);
 
@@ -26,30 +25,32 @@ public class SMAstar {
             State current = queue.poll();
             iterations++;
 
-            if(current.getPriorityV1() == 0){
-                System.out.println("Fonded solution: " + current.getMove() + " .");
+            if(current.hashCode() == solutionHash){
+                System.out.println("Found solution: " + current.getMove() + " .");
                 current.printTestBoard();
-                System.out.println("BFS iterations = " + iterations);
+                System.out.println("Astar new iterations = " + iterations);
                 return;
             }
 
-            for(int k = 0; k < State.SIZE; k++) {
+            for(int i = 0; i < State.SIZE; i++) {
                 State tmp;
 
                 tmp = new State(current.getBoard(), current.getMove());
-                tmp.MoveRowLeft(k);
-                tmp.calculateV1();
-                if(!visited.contains(tmp.hashCode())){
+                tmp.MoveRowLeft(i);
+                tmp.calculateH();
+                tmp.g = current.g + 1;
+                if(!visited.containsKey(tmp.hashCode()) || visited.get(tmp.hashCode()).g > tmp.g){
                     queue.add(tmp);
-                    visited.add(tmp.hashCode());
+                    visited.put(tmp.hashCode(), tmp);
                 }
 
                 tmp = new State(current.getBoard(), current.getMove());
-                tmp.MoveColUp(k);
-                tmp.setPriorityV1(current.getPriorityV1());
-                if(!visited.contains(tmp.hashCode())){
+                tmp.MoveColUp(i);
+                tmp.h = current.h;
+                tmp.g = current.g + 1;
+                if(!visited.containsKey(tmp.hashCode()) || visited.get(tmp.hashCode()).g > tmp.g){
                     queue.add(tmp);
-                    visited.add(tmp.hashCode());
+                    visited.put(tmp.hashCode(), tmp);
                 }
             }
         }

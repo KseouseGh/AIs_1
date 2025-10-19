@@ -12,9 +12,6 @@ public class State {
     int h=0;//Informal estimate to solution!
     int f=0;//Cal. value = g+h!
 
-    int priorityV1;
-
-
     public State(int[][] board, String move) {// Copy array for non-conflict refs!
         this.board = new int[SIZE][SIZE];
         this.move = move;
@@ -24,25 +21,24 @@ public class State {
         this.hashCode=hashCode();
     }
 
-    public void calculateV1 () {
-        int[] aim = {0, 1, 2, 3};
-        priorityV1 = 0;
+    public void calculateH() {
+        h = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if(aim[i] != board[i][j]) {
-                    priorityV1++;
+                if(j != board[i][j]) {
+                    h++;
                 }
             }
         }
     }
 
-    public int getPriorityV1() {
-        return priorityV1;
+    public int getPriority() {
+        f = g + h;
+        return f;
     }
 
-    public int setPriorityV1(int priorityV1) {
-        this.priorityV1 = priorityV1;
-    }
+
+
     public int[][] getBoard() {
         return board;
     }

@@ -7,10 +7,10 @@ public class Main {
         State obj = null;
         Scanner sc = new Scanner(System.in);
         int[][] staticMatrix = {
-                {0, 1, 2, 3},
-                {0, 1, 2, 0},
-                {0, 1, 2, 3},
-                {1, 2, 3, 3}
+                {3, 3, 0, 2},
+                {0, 0, 1, 3},
+                {3, 1, 2, 2},
+                {0, 1, 1, 2}
         };
         /*
         int[][] staticMatrix = {
@@ -44,7 +44,7 @@ public class Main {
             choice = sc.nextLine();
 
             switch (choice.charAt(0)) {
-                case '1', '2', '3', '4', '5' -> {
+                case '1', '2', '3', '4', '5', '6' -> {
                     if (obj == null) {
                         System.out.println("You must to init state");
                         continue;
