@@ -15,7 +15,7 @@ public class BoardGUI extends JFrame {
         this.state2=i2;
         this.current=state;
         setTitle("AIs_1");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 600);
         setLayout(new BorderLayout());// 4x4 B!
         gridPanel = new JPanel(new GridLayout(State.SIZE, State.SIZE));

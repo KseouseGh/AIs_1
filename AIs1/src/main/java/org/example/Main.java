@@ -22,15 +22,16 @@ public class Main {
             System.out.println("2 - DFS");
             System.out.println("3 - Bi_BFS");
             System.out.println("4 - A star");
-            System.out.println("5 - Generate a random state with depth specification");
-            System.out.println("6 - Use static matrix");
+            System.out.println("5 - A star new");
+            System.out.println("6 - Generate a random state with depth specification");
+            System.out.println("7 - Use static matrix");
             System.out.println("0 - Exit");
             System.out.print("Enter choice: ");
 
             choice = sc.nextLine();
 
             switch (choice.charAt(0)) {
-                case '1', '2', '3', '4' -> {
+                case '1', '2', '3', '4', '5' -> {
                     if (obj == null) {
                         System.out.println("You must to init state");
                         continue;
@@ -87,10 +88,18 @@ public class Main {
                             Utils.printMemoryUsage();
                             astar = null;
                             break;
+
+                        case '5':
+                            System.out.println("AStar new search!");
+                            System.out.println("Search start:");
+                            SMAstar.search(obj);
+                            System.out.println("Heuristic-search end");
+                            Utils.printMemoryUsage();
+                            break;
                     }
                 }
 
-                case '5' -> {
+                case '6' -> {
                     int tmp = 0;
                     System.out.print("Enter count of shifts: ");
 
@@ -106,7 +115,7 @@ public class Main {
                     gui.setVisible(true);
                 }
 
-                case '6' -> {
+                case '7' -> {
                     obj = new State(staticMatrix, "");
                     System.out.println("0 - Red, 1 - Green, 2 - Blue, 3 - Yellow");
                     System.out.println("Origin table!!!");
