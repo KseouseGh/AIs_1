@@ -14,6 +14,7 @@ public class DFS {
 
     public void search(State state){
         int iterations=0;
+        int peakOpen = 0;
         Runtime runtime = Runtime.getRuntime();
         runtime.gc();
         long startMemory = runtime.totalMemory() - runtime.freeMemory();
@@ -27,6 +28,7 @@ public class DFS {
                 State current = stack.pop();//Taking elem-t from the h-d!
                 iterations++;
                 local_iterations++;
+                peakOpen = Math.max(peakOpen, stack.size());
                 if (solutionHash == current.hashCode()) {
 
                     System.out.println("Fonded solution: " + current.getMove() + " .");
@@ -34,6 +36,7 @@ public class DFS {
                     System.out.println("DFS iterations = " + iterations);
                     System.out.println("DFS ''local_iterations'' on final depth, needed to find solution = " + local_iterations);
                     System.out.println("DFS depth = " + current.getDepth());
+                    System.out.println("Peak OPENED storage size = " + peakOpen);
                     long endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
                     long peakMemory = endMemory - startMemory;
                     System.out.println("DFS used memory (app.) = " + peakMemory / 1024 + " KB");

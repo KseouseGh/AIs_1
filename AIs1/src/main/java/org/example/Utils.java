@@ -1,20 +1,16 @@
 package org.example;
-
-import java.util.Arrays;
 import java.util.Random;
 
 public class Utils {
     public static int[][] shuffleMatrix(int shiftsCount) {
         int[][] matrix = new int[4][4];
         Random random = new Random();
-
         // Инициализация матрицы
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 matrix[i][j] = j;
             }
         }
-
         // Выполняем указанное количество случайных сдвигов
         for (int s = 0; s < shiftsCount; s++) {
             boolean shiftRow = random.nextBoolean(); // true → строка, false → столбец
@@ -38,7 +34,6 @@ public class Utils {
         }
         matrix[row][0] = last;
     }
-
     // Сдвиг столбца вниз
     private static void shiftColumnDown(int[][] matrix, int col) {
         int last = matrix[3][col];
@@ -52,12 +47,10 @@ public class Utils {
         Runtime runtime = Runtime.getRuntime();
         return runtime.totalMemory() - runtime.freeMemory();
     }
-
     //Возвращает используемую память в мегабайтах
     public static double getUsedMemoryMB() {
         return getUsedMemory() / (1024.0 * 1024.0);
     }
-
     //Печатает информацию о памяти JVM.
     public static void printMemoryUsage() {
         Runtime runtime = Runtime.getRuntime();
@@ -79,13 +72,5 @@ public class Utils {
                 total / (1024.0 * 1024.0),
                 max / (1024.0 * 1024.0)
         );
-    }
-
-    public static int[][] copyBoard(int[][] board) {
-        int[][] newBoard = new int[State.SIZE][State.SIZE];
-        for (int i = 0; i < State.SIZE; i++) {
-            newBoard[i] = Arrays.copyOf(board[i], State.SIZE);
-        }
-        return newBoard;
     }
 }
